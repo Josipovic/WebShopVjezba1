@@ -1,0 +1,9 @@
+﻿@model WebShop.Models.Product
+
+<a href="@Url.Action("Details",new {Id=Model.Id })">
+<img class="img-responsive" src="@Model.ImageUrl" />
+
+<p>@Model.Name</p>
+<p><strike>@Model.Price </strike>kn</p>
+<p>@Model.DiscountPrice kn</p>
+</a>

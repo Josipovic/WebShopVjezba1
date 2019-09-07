@@ -1,0 +1,27 @@
+﻿@using WebShop.Models
+
+@{
+
+
+    var count = Session["cart"] == null ? 0 : ((List<Item>)Session["cart"]).Sum(x => x.Count);
+
+}
+
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="@Url.Action("Index","ShoppingCart") ">
+
+            @if (count == 0)
+            {
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                
+            }
+            else
+            {
+                <span class="glyphicon glyphicon-shopping-cart alert-danger"></span>
+                <span class="badge alert-danger">@count</span>
+            }
+        </a>
+    </li>
+</ul>

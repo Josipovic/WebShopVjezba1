@@ -1,0 +1,105 @@
+﻿@model WebShop.Models.Product
+
+@{
+    ViewBag.Title = "Obriši";
+    Layout = "~/Views/Shared/_LayoutProductCategory.cshtml";
+}
+
+<h2>Obriši proizvod</h2>
+
+<h3>Jeste li sigurni da želite obrisati ovaj proizvod?</h3>
+<div>
+    <h4>Proizvod</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Warranty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Warranty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Available)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Available)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewProduct)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Obriši" class="btn btn-default" /> |
+            @Html.ActionLink("Povratak", "Index")
+        </div>
+    }
+</div>

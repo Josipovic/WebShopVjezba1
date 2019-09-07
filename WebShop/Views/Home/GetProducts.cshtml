@@ -1,0 +1,109 @@
+﻿@model IPagedList<WebShop.Models.Product>
+@using PagedList;
+@using PagedList.Mvc;
+@using System.Web.UI.WebControls;
+
+@{
+    ViewBag.Title = "GetProducts";
+}
+
+@{
+    int count = 0;
+
+
+}
+<style>
+    .thumbnail:hover {
+        border-color: dodgerblue;
+        border-width: 2px;
+    }
+
+    .thumbnail a {
+        text-decoration: none;
+    }
+</style>
+@using (Html.BeginForm("GetProducts", "Home", FormMethod.Get))
+{
+
+    @Html.Hidden("categoryId", Request.QueryString["categoryId"])
+    @Html.TextBox("search", "", new { @class = "form-control", @style =
+        "display:inline;" })
+    <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span>Pretraži
+    </button>
+
+}
+@{var listItems = new List<ListItem>()
+    {
+      new ListItem { Text="Naziv A-Z",Value=""},
+      new ListItem{ Text="Naziv Z-A",Value="NameDesc"},
+      new ListItem { Text="Prvo najjeftiniji",Value="Price"},
+      new ListItem {Text="Prvo najskuplji",Value="PriceDesc" }
+    };
+
+}
+@using (Html.BeginForm("GetProducts", "Home", FormMethod.Get))
+{
+    @Html.Hidden("categoryId", Request.QueryString["categoryId"])
+    @Html.Hidden("search", Request.QueryString["search"])
+    @Html.DropDownList("orderBy",new SelectList(listItems,"Value","Text"),new {@class="form-control",
+    @style ="display:inline;" })
+    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-sort" ></span>Poredaj</button>
+
+
+}
+
+@foreach (var p in Model)
+{
+    @(count % 3 == 0 ? Html.Raw("<div class='row'>") : Html.Raw(""))
+    <div class="col-md-4" style="padding:15px;">
+        <div class="thumbnail">
+
+            <a href="@Url.Action("Details", "Home", new { Id = p.Id })">
+
+
+
+                <img src="@Url.Content(p.ImageUrl)" alt="Mobitel" style="width:100%">
+
+                <div style="position:absolute; bottom:150px; right:16px;">
+                    @if (p.Discount)
+                    {
+                        <p style="font-size:30px"><span class="label label-danger">Akcija</span></p>
+                    }
+
+                </div>
+
+
+                <div class="caption">
+                    <p style="font-size:20px;">@p.Name</p>
+                    @if (p.Discount == true)
+                    {
+                        <p style="font-size:20px">@p.DiscountPrice kn</p>
+                    }
+                    else
+                    {
+                        <p style="font-size:20px">@p.Price kn</p>
+                    }
+
+                </div>
+
+            </a>
+            <div class="text-right" style="margin:5px;">
+                <a href="@Url.Action("AddToCart", "ShoppingCart", new { Id = p.Id })">
+                    <div class="btn btn-danger"><span class="glyphicon glyphicon-shopping-cart"></span>  U košaricu</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @(count % 3 == 2 && count < Model.Count() - 1 ? Html.Raw("</div>") : Html.Raw(""))
+    count++;
+
+}
+@(Html.Raw("</div>"))
+
+@Html.PagedListPager(Model,page=>Url.Action("GetProducts",new
+{ page,categoryId=Request.QueryString["categoryId"],
+    orderBy =Request.QueryString["orderBy"],
+    search = Request.QueryString["search"]
+}))

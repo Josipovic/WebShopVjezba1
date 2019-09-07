@@ -1,0 +1,7 @@
+﻿
+@if (User.Identity.IsAuthenticated && User.Identity.Name ==
+    "katarina.josipovic@gmail.com")
+{
+<li>@Html.ActionLink("Kategorije", "Index", "Categories")</li>
+<li>@Html.ActionLink("Proizvodi", "Index", "Products")</li>
+}

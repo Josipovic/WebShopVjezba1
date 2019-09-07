@@ -1,0 +1,74 @@
+﻿@using WebShop.Models
+
+<h2>Košarica</h2>
+
+
+@if (Session["cart"] != null)
+{
+    if (((List<Item>)Session["cart"]).Count != 0)
+    {
+        <p>Sadržaj vaše košarice:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Proizvod</th>
+                    <th>Količina</th>
+                    <th>Ukupno</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    decimal suma = 0;
+                }
+
+                @foreach (var item in (List<Item>)Session["cart"])
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Count</td>
+                        @if (item.Product.Discount == true)
+                        {
+                            suma += (item.Product.DiscountPrice * item.Count);
+                            <td>@(item.Product.DiscountPrice * item.Count)</td>
+                        }
+                        else
+                        {
+                            suma += (item.Product.Price * item.Count);
+                            <td>@(item.Product.Price * item.Count)</td>
+                        }
+                        <td>
+                            @Html.ActionLink("-", "DecreaseCount", "ShoppingCart", new { Id = item.Product.Id },
+                                              new { @class = "btn btn-danger" })
+                        </td>
+                        @*moze se napravit s ActionLinkom a moze i sa <a href=""></a>*@
+                        <td>
+                            @Html.ActionLink("+", "IncreaseCount", "ShoppingCart", new { Id = item.Product.Id },
+                                                  new { @class = "btn btn-danger" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Ukloni", "RemoveFromCart", "ShoppingCart", new { Id = item.Product.Id },
+                                                  new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td>Ukupni iznos</td>
+                    <td>@suma</td>
+                </tr>
+            </tbody>
+        </table>
+        @Html.ActionLink("Naruči", "Checkout", "ShoppingCart",
+                                   new { @class = "btn btn-danger" })
+    }
+    else
+    {
+        <p>Vaša košarica je prazna.</p>
+    }
+
+}
+else
+{
+    <p>Vaša košarica je prazna</p>
+}
+

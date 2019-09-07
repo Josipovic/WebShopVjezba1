@@ -1,0 +1,35 @@
+﻿@model WebShop.Models.Category
+
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_LayoutProductCategory.cshtml";
+}
+
+<h2>Detalji kategorije</h2>
+
+<div>
+    <h4>Kategorija</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Uredi", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Povratak", "Index")
+</p>

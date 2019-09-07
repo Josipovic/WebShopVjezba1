@@ -1,0 +1,40 @@
+﻿@model WebShop.Models.Product
+
+@{
+    ViewBag.Title = "Detalji o proizvodu";
+}
+
+<div class="row">
+    <div class="col-sm-3">
+        <img class="img-responsive" src="@Model.ImageUrl" style="margin-top:30px;border:solid 1px;" />
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-8">
+        <h3>@Model.Name</h3>
+        @if (Model.Discount == true)
+        {
+            <h4>@Model.DiscountPrice kn</h4>
+        }
+        else
+        {
+            <h4>@Model.Price kn</h4>
+
+        }
+        <p><b>Jamstvo</b>@Model.Warranty mj.</p>
+        @if (Model.Available == true)
+        {
+            <p><b>Dostupnost:</b>Proizvod je dostupan</p>
+        }
+        else
+        {
+            <p><b>Dostupnost:</b>Proizvod nije dostupan</p>
+        }
+        <p><b>Detalji o proizvodu</b>@Model.Description</p>
+        <div>
+            <a href="@Url.Action("AddToCart","ShoppingCart",new {Id=Model.Id })" class="btn btn-danger"> U košaricu</a>
+        </div>
+    </div>
+</div>
+
